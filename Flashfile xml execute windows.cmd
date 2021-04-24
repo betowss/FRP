@@ -36,9 +36,6 @@ goto nomfastbootexe
 )
 :nomfastbootexe
 copy flashfile.cmd "%title%.txt"
-cls
-find "mfastboot" mfastboot.exe
-pause
 exit
 :startflash
 pause
