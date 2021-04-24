@@ -2,7 +2,7 @@
 echo adb devices > commands.txt
 echo adb reboot-bootloader >> commands.txt
 echo fastboot devices >> commands.txt
-echo reboot-bootloader >> commands.txt
+echo fastboot reboot-bootloader >> commands.txt
 if exist flashfile.xml (
 goto startconvert
 ) else (
