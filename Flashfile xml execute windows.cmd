@@ -1,17 +1,18 @@
 @echo off
 if exist flashfile.xml (
-goto start
+goto startconvert
 ) else (
-goto error
+goto noflashfilexml
 )
-:error
-find "\<software_version\>" flashfile.xml
+:noflashfilexml
+find "flashfile" flashfile.xml
 pause
 exit
-:start
+:startconvert
 findstr "\<software_version\>" flashfile.xml > software_version.txt
-for /F delims^=^"^ Tokens^=2^,4^,6^* %%G in (software_version.txt) DO @title %%G %%H
-for /F delims^=^"^ Tokens^=2^,4^,6^* %%G in (software_version.txt) DO echo @title %%G %%H > flashfile.cmd
+for /F delims^=^"^ Tokens^=2^,4^,6^* %%G in (software_version.txt) DO set title=%%G
+title %title%
+echo @title %title% > flashfile.cmd
 echo mfastboot getvar max-sparse-size >> flashfile.cmd
 echo mfastboot oem fb_mode_set >> flashfile.cmd
 findstr "\<erase\>" flashfile.xml | findstr /v "modem" > erase.txt
@@ -24,6 +25,17 @@ echo @cmd >> flashfile.cmd
 del erase.txt
 del flash.txt
 del software_version.txt
+if exist mfastboot.exe (
+goto startflash
+) else (
+goto nomfastbootexe
+)
+:nomfastbootexe
+copy flashfile.cmd "%title%.txt"
+find "mfastboot" mfastboot.exe
+pause
+exit
+:startflash
 pause
 echo on
 cls
