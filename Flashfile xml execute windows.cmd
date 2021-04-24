@@ -35,7 +35,7 @@ goto startflash
 goto nomfastbootexe
 )
 :nomfastbootexe
-copy flashfile.cmd "%title%.txt"
+findstr /v "@title" flashfile.cmd > "%title%.txt"
 exit
 :startflash
 pause
