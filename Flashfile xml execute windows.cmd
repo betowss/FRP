@@ -29,13 +29,13 @@ echo @cmd >> flashfile.cmd
 del erase.txt
 del flash.txt
 del software_version.txt
+findstr /v "@title" flashfile.cmd > "FLASHFILE COMMANDS %title%.txt"
 if exist mfastboot.exe (
 goto startflash
 ) else (
 goto nomfastbootexe
 )
 :nomfastbootexe
-findstr /v "@title" flashfile.cmd > "FLASHFILE COMMANDS %title%.txt"
 exit
 :startflash
 pause
